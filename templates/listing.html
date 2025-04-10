@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/listing.css">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="static/logo.png" alt="Skuter Center Logo">
+            <h1>Skuter Center</h1>
+        </div>
+        <nav>
+            <a href="/">Domov</a>
+            <a href="#">O nas</a>
+            <a href="#">Kontakt</a>
+            {% if session["user_name"] %}
+                <div class="profile-picture">
+                    <a href="/profile"><img src="{{ profile_picture if profile_picture else 'static/default-profile.png' }}" alt="Profilna slika"></a>
+                </div>
+            {% endif %}
+        </nav>
+    </header>
+    <section class = "listing_container">
+        <form action="/listing" method="POST" enctype="multipart/form-data" id="listing-form">
+            <label for="vrsta">Vrsta motorja:</label>
+            <select id="vrsta" name="vrsta" required>
+                <option value="">Izberi...</option>
+                <option value="4t">4t</option>
+                <option value="2t">2t</option>
+            </select>
+
+            <label for="prostornina">Prostornina motorja:</label>
+            <select id="prostornina" name="prostornina" disabled required>
+                <option value="">Izberi...</option>
+                <option class="2t" value="50cc">50cc</option>
+                <option class="2t" value="70cc">70cc</option>
+                <option class="2t" value="125cc">125cc</option>
+                <option class="2t" value="172cc">172cc</option>
+                <option class="4t" value="50cc">50cc</option>
+                <option class="4t" value="80cc">80cc</option>
+                <option class="4t" value="125cc">125cc</option>
+                <option class="4t" value="180cc">180cc</option>
+                <option class="4t" value="200cc">200cc</option>
+            </select>
+
+            <label for="znamka">Znamka:</label>
+            <select id="znamka" name="znamka" required>
+                <option value="">Izberi...</option>
+                <option value="piaggio">piaggio</option>
+                <option value="gilera">gilera</option>
+                <option value="yamaha">yamaha</option>
+                <option value="aprilia">aprilia</option>
+                <option value="znen">znen</option>
+                <option value="sym">sym</option>
+                <option value="longija">longija</option>
+                <option value="honda">honda</option>
+                <option value="kymco">kymco</option>
+                <option value="vespa">vespa</option>
+            </select>
+
+            <label for="model">Model:</label>
+            <select id="model" name="model" disabled required>
+                <option value="">Izberi...</option>
+                <option class="piaggio" value="zip">zip</option>
+                <option class="piaggio" value="liberty">liberty</option>
+                <option class="piaggio" value="nrg">nrg</option>
+                <option class="piaggio" value="typhoon">typhoon</option>
+                <option class="piaggio" value="beverly">beverly</option>
+                <option class="piaggio" value="fly">fly</option>
+                <option class="piaggio" value="x9">x9</option>
+                <option class="gilera" value="runner">runner</option>
+                <option class="gilera" value="stalker">stalker</option>
+                <option class="gilera" value="nexus">nexus</option>
+                <option class="gilera" value="ice">ice</option>
+                <option class="gilera" value="dna">dna</option>
+                <option class="yamaha" value="aerox">aerox</option>
+                <option class="yamaha" value="jog">jog</option>
+                <option class="yamaha" value="neos">neos</option>
+                <option class="yamaha" value="nmax">nmax</option>
+                <option class="yamaha" value="xmax">xmax</option>
+                <option class="yamaha" value="tmax">tmax</option>
+                <option class="yamaha" value="vino">vino</option>
+                <option class="aprilia" value="sr50">sr50</option>
+                <option class="aprilia" value="rally">rally</option>
+                <option class="aprilia" value="scarabeo">scarabeo</option>
+                <option class="aprilia" value="area51">area51</option>
+                <option class="aprilia" value="atlantic">atlantic</option>
+                <option class="znen" value="zn50qt">zn50qt</option>
+                <option class="znen" value="zn125t">zn125t</option>
+                <option class="znen" value="zn150t">zn150t</option>
+                <option class="sym" value="jet">jet</option>
+                <option class="sym" value="fiddle">fiddle</option>
+                <option class="sym" value="orbit">orbit</option>
+                <option class="sym" value="crox">crox</option>
+                <option class="sym" value="symphony">symphony</option>
+                <option class="longija" value="lj50qt">lj50qt</option>
+                <option class="longija" value="lj125t">lj125t</option>
+                <option class="longija" value="lj150t">lj150t</option>
+                <option class="honda" value="dio">dio</option>
+                <option class="honda" value="pcx">pcx</option>
+                <option class="honda" value="sh125">sh125</option>
+                <option class="honda" value="forza">forza</option>
+                <option class="honda" value="vision">vision</option>
+                <option class="kymco" value="agility">agility</option>
+                <option class="kymco" value="people">people</option>
+                <option class="kymco" value="like">like</option>
+                <option class="kymco" value="downtown">downtown</option>
+                <option class="kymco" value="xciting">xciting</option>
+                <option class="vespa" value="primavera">primavera</option>
+                <option class="vespa" value="sprint">sprint</option>
+                <option class="vespa" value="gts">gts</option>
+                <option class="vespa" value="lx">lx</option>
+                <option class="vespa" value="px">px</option>
+            </select>
+
+            <label for="registracija">Registracija:</label>
+            <select id="registracija" name="registracija" required>
+                <option value="">Izberi...</option>
+                <option value="25">25</option>
+                <option value="45">45</option>
+                <option value="125">125</option>
+            </select>
+
+            <label for="opis">Opis:</label>
+            <textarea id="opis" name="opis" rows="5" cols="50" placeholder="Vnesite opis skuterja..." required></textarea>
+
+            <label for="cena">Cena (€):</label>
+            <input type="number" id="cena" name="cena" required></number>
+
+            <label for="prevozeni">Prevoženi kilometri:</label>
+            <input type="number" id="prevozeni" name="prevozeni" min="0" step="1" placeholder="Vnesite prevožene kilometre" required>
+
+            <label for="images">Slike:</label>
+            <input type="file" id="images" name="images" accept="image/*" multiple required>
+            <div id="selected-images"></div>
+
+            <button id="submit_answer" type="submit">Objavi</button>
+        </form>
+    </section>
+    <script>
+
+        document.getElementById("images").addEventListener("change", function () {
+            const selectedImagesDiv = document.getElementById("selected-images");
+            const files = this.files;
+
+            if (files.length > 0) {
+                const list = selectedImagesDiv.querySelector("ul") || document.createElement("ul");
+                if (!selectedImagesDiv.contains(list)) {
+                    selectedImagesDiv.appendChild(list);
+                }
+
+                for (let i = 0; i < files.length; i++) {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = files[i].name;
+                    list.appendChild(listItem);
+                }
+            } else {
+                selectedImagesDiv.textContent = "Nobena slika ni izbrana.";
+            }
+        });
+
+        function posodobiSeznam(izvorniSeznam, ciljniSeznam) {
+            let izbranaVrednost = izvorniSeznam.value;
+            let vseOpcije = ciljniSeznam.querySelectorAll("option");
+
+            ciljniSeznam.value = "";
+            ciljniSeznam.disabled = true;
+
+            let prikazano = false;
+            vseOpcije.forEach(function(opcija) {
+
+                if (opcija.classList.contains(izbranaVrednost) || opcija.value === "") {
+                    opcija.style.display = "block";
+                    prikazano = true;
+                } else {
+                    opcija.style.display = "none";
+                }
+            });
+
+            if (prikazano) {
+                ciljniSeznam.disabled = false;
+            }
+        }
+
+        document.getElementById("vrsta").addEventListener("change", function() {
+            posodobiSeznam(this, document.getElementById("prostornina"));
+        });
+
+        document.getElementById("znamka").addEventListener("change", function() {
+            posodobiSeznam(this, document.getElementById("model"));
+        });
+    </script>
+</body>
+</html>

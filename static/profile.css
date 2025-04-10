@@ -1,0 +1,101 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9; /* Light background for the profile page */
+    color: #333;
+}
+
+/* Header styling */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #28a745; /* Green for the profile page */
+    color: white;
+    padding: 15px 20px; /* Same width as other pages */
+}
+
+header .logo-container {
+    display: flex;
+    align-items: center;
+}
+
+header img {
+    height: 50px;
+    margin-right: 15px;
+}
+
+header nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 16px;
+}
+
+header nav a:hover {
+    text-decoration: underline;
+}
+
+/* Profile container styling */
+.profile-container {
+    max-width: 600px;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Center-align content */
+}
+
+.profile-container h2 {
+    margin-bottom: 20px;
+    color: #28a745; /* Match the header color */
+}
+
+/* Profile info styling */
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center-align content */
+    gap: 20px;
+}
+
+/* Profile picture styling */
+.profile-picture img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; /* Rounded corners */
+    object-fit: cover;
+    border: 2px solid #ccc;
+}
+
+.profile-picture form {
+    margin-top: 10px;
+}
+
+.profile-picture input[type="file"] {
+    margin-bottom: 10px;
+}
+
+.profile-picture button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.profile-picture button:hover {
+    background-color: #218838;
+}
+
+/* Profile details styling */
+.profile-details p {
+    margin: 10px 0;
+    font-size: 16px;
+    font-weight: bold;
+}

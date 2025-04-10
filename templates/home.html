@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="static/home.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skuter Center</title>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="static/logo.png" alt="Skuter Center Logo">
+            <h1>Skuter Center</h1>
+        </div>
+        <nav>
+            {% if not session["user_name"] %}
+                <a href="/register">Prijava</a>
+            {% endif %}
+            {% if session["user_name"] %}
+                <a href="/listing">Objava</a>
+            {% endif %}
+            <a href="#">O nas</a>
+            <a href="#">Kontakt</a>
+            {% if session["user_name"] %}
+                <div class="profile-picture">
+                    <a href="/profile"><img src="{{ profile_picture if profile_picture else 'static/default-profile.png' }}" alt="Profilna slika"></a>
+                </div>
+            {% endif %}
+        </nav>
+    </header>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <section class="flash-container">
+    <div class="messages">
+        {% for category, message in messages %}
+        <p class="{{ category }}">{{ message }}</p>
+        {% endfor %}
+    </div>
+    </section>
+    {% endif %}
+    {% endwith %}
+    <section class="search-container">
+        <h2>Najdi svoj skuter</h2>
+        <form action="/submit" method="POST" id="search-form">
+            <label for="vrsta">Vrsta motorja:</label>
+            <select id="vrsta">
+                <option value="">Izberi...</option>
+                <option value="4t">4t</option>
+                <option value="2t">2t</option>
+            </select>
+            <label for="prostornina">Prostornina motorja:</label>
+            <select id="prostornina" disabled>
+                <option value="">Izberi...</option>
+                <option class="2t" value="50cc">50cc</option>
+                <option class="2t" value="70cc">70cc</option>
+                <option class="2t" value="125cc">125cc</option>
+                <option class="2t" value="172cc">172cc</option>
+                <option class="4t" value="50cc">50cc</option>
+                <option class="4t" value="80cc">80cc</option>
+                <option class="4t" value="125cc">125cc</option>
+                <option class="4t" value="180cc">180cc</option>
+                <option class="4t" value="200cc">200cc</option>
+            </select>
+
+            <label for="znamka">Znamka:</label>
+            <select id="znamka">
+                <option value="">Izberi...</option>
+                <option value="piaggio">piaggio</option>
+                <option value="gilera">gilera</option>
+                <option value="yamaha">yamaha</option>
+                <option value="aprilia">aprilia</option>
+                <option value="znen">znen</option>
+                <option value="sym">sym</option>
+                <option value="longija">longija</option>
+            </select>
+
+            <label for="model">Model:</label>
+            <select id="model" disabled>
+                <option value="">Izberi...</option>
+                <option class="piaggio" value="zip">zip</option>
+                <option class="gilera" value="runner">runner</option>
+                <option class="gilera" value="stalker">stalker</option>
+            </select>
+
+            <label for="registracija">registracija</label>
+            <select id="registracija">
+                <option value="">Izberi...</option>
+                <option value="25">25</option>
+                <option value="45">45</option>
+                <option value="125">125</option>
+            </select>
+
+            <button id="submit_answer" type="submit">Išči</button>
+        </form>
+    </section>
+
+    <script>
+        function posodobiSeznam(izvorniSeznam, ciljniSeznam) {
+            let izbranaVrednost = izvorniSeznam.value;
+            let vseOpcije = ciljniSeznam.querySelectorAll("option");
+    
+            ciljniSeznam.value = "";
+            ciljniSeznam.disabled = true;
+    
+            let prikazano = false;
+            vseOpcije.forEach(function(opcija) {
+
+                if (opcija.classList.contains(izbranaVrednost) || opcija.value === "") {
+                    opcija.style.display = "block";
+                    prikazano = true;
+                } else {
+                    opcija.style.display = "none";
+                }
+            });
+
+            if (prikazano) {
+                ciljniSeznam.disabled = false;
+            }
+        }
+    
+        document.getElementById("vrsta").addEventListener("change", function() {
+            posodobiSeznam(this, document.getElementById("prostornina"));
+        });
+    
+        document.getElementById("znamka").addEventListener("change", function() {
+            posodobiSeznam(this, document.getElementById("model"));
+        });
+    </script>
+</body>
+</html>

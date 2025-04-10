@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="static/register.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registracija</title>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="static/logo.png" alt="Skuter Center Logo">
+            <h1>Skuter Center</h1>
+        </div>
+        <nav>
+            <a href="/">Domov</a>
+            <a href="#">O nas</a>
+            <a href="#">Kontakt</a>
+        </nav>
+    </header>
+
+    <section class="form-container">
+        <h2>Prijavi se</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="messages">
+            {% for category, message in messages %}
+            <p class="{{ category }}">{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <form action="/login" method="POST" id="login-form">
+            <label for="email">E-pošta:</label>
+            <input type="email" id="email" name="email" placeholder="Vnesite svoj e-poštni naslov" required>
+
+            <label for="password">Geslo:</label>
+            <input type="password" id="password" name="password" placeholder="Vnesite geslo" required>
+
+            <button type="submit">Prijavite se</button>
+        </form>
+
+        <p>Še nimate računa? <a href="/register">Registrirajte se tukaj</a>.</p>
+    </section>
+</body>
+</html>
